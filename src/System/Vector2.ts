@@ -14,6 +14,10 @@ export default class Vector2 {
 
     // Methods
 
+    public add(other: Vector2): Vector2 {
+        return new Vector2(this.x + other.x, this.y + other.y);
+    }
+
     public substract(other: Vector2): Vector2 {
         return new Vector2(this.x - other.x, this.y - other.y);
     }

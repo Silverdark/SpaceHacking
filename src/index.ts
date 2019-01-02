@@ -1,4 +1,4 @@
-import Game from './Game'
+import Game from './System/Game'
 
 const game = new Game();
 game.startGame();

@@ -17,7 +17,11 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: ['.ts', '.js', '.json']
+        extensions: ['.ts', '.js', '.json'],
+        modules: [
+            path.resolve('./src'),
+            path.resolve('./node_modules')
+        ]
     },
     devServer: {
         contentBase: path.join(__dirname, 'public')

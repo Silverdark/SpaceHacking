@@ -1,7 +1,8 @@
-import Vector2 from "./Vector2";
-import Entity from "./Entity";
+import Vector2 from 'System/Vector2'
+import Entity from 'Entity'
+import Renderer from 'System/Renderer'
 
-export default class Screen {
+export default abstract class Screen {
 
     // Fields
 
@@ -19,11 +20,10 @@ export default class Screen {
 
     // Methods
 
-    public render(canvasContext: CanvasRenderingContext2D) {
+    public render(render: Renderer) {
         // Draw all entities
         this.entites.forEach((entity) => {
-            const position = entity.position;
-            canvasContext.fillRect(this.startPoint.x + position.x, this.startPoint.y + position.y, 10, 10);
+            entity.render(render, this.startPoint);
         });
     }
 

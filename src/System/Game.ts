@@ -1,17 +1,20 @@
-import Screen from './Screen'
+import Screen from 'Screens/Screen'
 import Vector2 from './Vector2'
-import MainScreen from './MainScreen';
+import MainScreen from 'Screens/MainScreen'
+import Renderer from './Renderer'
+import HelpScreen from 'Screens/HelpScreen'
 
 export default class Game {
 
     // Fields
+
     private screens: Screen[] = [];
 
     private gameWidth: number;
     private gameHeight: number;
 
     private canvas: HTMLCanvasElement;
-    private canvasContext: CanvasRenderingContext2D;
+    private renderer: Renderer;
 
     private fps = 60;
     private step = 1 / this.fps;
@@ -19,15 +22,19 @@ export default class Game {
     private deltaTime: number;
 
     // Constructors
-    constructor() {
-        const mainScreen = new MainScreen();
-        const helpScreen = new Screen(new Vector2(1137, 75), new Vector2(1857, 555));
 
+    constructor() {
+
+        // Initialize screens
+        const mainScreen = new MainScreen();
+        const helpScreen = new HelpScreen();
         this.screens.push(mainScreen);
         this.screens.push(helpScreen);
 
+        // Initialize canvas + renderer
         this.canvas = <HTMLCanvasElement>document.getElementById("canvas");
-        this.canvasContext = this.canvas.getContext('2d');
+        const canvasContext = this.canvas.getContext('2d');
+        this.renderer = new Renderer(canvasContext);
 
         this.gameWidth = this.canvas.width;
         this.gameHeight = this.canvas.height;
@@ -71,9 +78,10 @@ export default class Game {
     }
 
     private render() {
-        this.canvasContext.clearRect(0, 0, this.gameWidth, this.gameHeight);
+        this.renderer.clearRect(0, 0, this.gameWidth, this.gameHeight);
 
-        this.screens.forEach(screen => screen.render(this.canvasContext));
+        // Render each screen and their sub entites
+        this.screens.forEach(screen => screen.render(this.renderer));
     }
 
     // Event handler
