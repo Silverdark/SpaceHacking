@@ -1,23 +1,32 @@
 import Vector2 from 'System/Vector2'
 import Screen from './Screen'
 import Renderer from 'System/Renderer'
+import Game from 'System/Game'
+import Level from 'LevelSystem/Level'
+import Constants from 'System/Constants'
 
 export default class HelpScreen extends Screen {
 
     // Fields
+    private game: Game;
 
     // Constructors
-    constructor() {
-        super(new Vector2(1137, 75), new Vector2(1857, 555));
+    constructor(game: Game) {
+        super(new Vector2(Constants.helpScreen.topLeftX, Constants.helpScreen.topLeftY), new Vector2(Constants.helpScreen.rightBottomX, Constants.helpScreen.rightBottomY));
+
+        this.game = game;
     }
 
     // Methods
 
-    public render(render: Renderer) {
-        render.setFillStyle("#276822");
-        render.fillRectangle(this.startPoint, this.endPoint);
+    public loadLevel(level: Level): void {
+        this.entites = level.activeRoom.entities;
     }
 
-    public handleClick(position: Vector2) {
+    public render(renderer: Renderer) {
+        renderer.setFillStyle(Constants.helpScreen.backgroundColor);
+        renderer.fillRectangle(this.startPoint, this.endPoint);
+
+        super.render(renderer);
     }
 }

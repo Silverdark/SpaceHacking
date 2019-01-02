@@ -3,12 +3,15 @@ import Vector2 from './Vector2'
 import MainScreen from 'Screens/MainScreen'
 import Renderer from './Renderer'
 import HelpScreen from 'Screens/HelpScreen'
+import Level from 'LevelSystem/Level'
+import Level01 from 'LevelSystem/Level01';
+import Constants from './Constants';
 
 export default class Game {
 
     // Fields
 
-    private screens: Screen[] = [];
+    private isStarted = false;
 
     private gameWidth: number;
     private gameHeight: number;
@@ -16,18 +19,19 @@ export default class Game {
     private canvas: HTMLCanvasElement;
     private renderer: Renderer;
 
-    private fps = 60;
-    private step = 1 / this.fps;
+    private step: number;
     private lastTime: number;
     private deltaTime: number;
+
+    private screens: Screen[] = [];
+    public currentLevel: Level;
 
     // Constructors
 
     constructor() {
-
         // Initialize screens
         const mainScreen = new MainScreen();
-        const helpScreen = new HelpScreen();
+        const helpScreen = new HelpScreen(this);
         this.screens.push(mainScreen);
         this.screens.push(helpScreen);
 
@@ -36,6 +40,7 @@ export default class Game {
         const canvasContext = this.canvas.getContext('2d');
         this.renderer = new Renderer(canvasContext);
 
+        this.step = 1 / Constants.fps;
         this.gameWidth = this.canvas.width;
         this.gameHeight = this.canvas.height;
 
@@ -45,12 +50,41 @@ export default class Game {
 
     // Methods
 
-    startGame() {
+    public startGame() {
+        if (this.isStarted)
+            return;
+
+        // Load first level 
+        const firstLevel = new Level01();
+        this.loadLevel(firstLevel);
+
+        this.isStarted = true;
+
         // Initialize event handler
         this.canvas.addEventListener('click', this.onCanvasClick);
 
         // Start update & render methods
         this.frame();
+    }
+
+    public loadLevel(level: Level) {
+        console.log(`Loading level "${level.name}"...`)
+
+        this.currentLevel = level;
+        this.screens.forEach(screen => screen.loadLevel(level));
+
+        console.log("Level loaded.")
+    }
+
+    // Event handler
+
+    private onCanvasClick(event) {
+        const clickPosition = new Vector2(event.x, event.y);
+
+        this.screens.forEach(screen => {
+            if (clickPosition.isInsideRectangle(screen.startPoint, screen.endPoint))
+                screen.handleClick(clickPosition);
+        });
     }
 
     // Game loop
@@ -82,16 +116,5 @@ export default class Game {
 
         // Render each screen and their sub entites
         this.screens.forEach(screen => screen.render(this.renderer));
-    }
-
-    // Event handler
-
-    private onCanvasClick(event) {
-        const clickPosition = new Vector2(event.x, event.y);
-
-        this.screens.forEach(screen => {
-            if (screen.isInsideScreen(clickPosition))
-                screen.handleClick(clickPosition);
-        });
     }
 }

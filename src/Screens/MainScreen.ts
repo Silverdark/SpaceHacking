@@ -1,6 +1,6 @@
 import Vector2 from 'System/Vector2'
 import Screen from './Screen'
-import Renderer from 'System/Renderer'
+import Constants from 'System/Constants'
 
 export default class MainScreen extends Screen {
 
@@ -8,14 +8,8 @@ export default class MainScreen extends Screen {
 
     // Constructors
     constructor() {
-        super(new Vector2(61, 183), new Vector2(1085, 951));
+        super(new Vector2(Constants.mainScreen.topLeftX, Constants.mainScreen.topLeftY), new Vector2(Constants.mainScreen.rightBottomX, Constants.mainScreen.rightBottomY));
     }
 
     // Methods
-
-    public render(render: Renderer) {
-    }
-
-    public handleClick(position: Vector2) {
-    }
 }
