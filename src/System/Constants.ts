@@ -17,22 +17,27 @@ export default {
         topLeftX: 1137,
         topLeftY: 75,
         rightBottomX: 1857,
-        rightBottomY: 555
+        rightBottomY: 555,
+        helpTextStartX: 20,
+        helpTextStartY: 80
     },
 
     level: {
+        borderColor: "#FFFFFF",
         startX: 340,
         startY: 60,
-        entityPadding: 5
+        entityPadding: 5,
+        elements: 10
     },
 
     entities: {
-        selectedStrokeStyle: "#FF0000",
+        selectedStrokeStyle: "#FFFFFF",
         wall: {
             backgroundColor: "#383838"
         },
-        accessPoint: {
-            backgroundColor: "#0043FF"
+        firewall: {
+            backgroundColorNotHacked: "#FF0000",
+            backgroundColorHacked: "#00FF00"
         }
     }
 }

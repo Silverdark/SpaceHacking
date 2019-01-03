@@ -3,7 +3,7 @@ import Vector2 from 'System/Vector2'
 import Renderer from 'System/Renderer'
 import Constants from 'System/Constants';
 
-export default class SelectableEntity extends Entity {
+export default abstract class SelectableEntity extends Entity {
 
     // Fields
 

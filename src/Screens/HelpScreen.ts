@@ -4,15 +4,18 @@ import Renderer from 'System/Renderer'
 import Game from 'System/Game'
 import Level from 'LevelSystem/Level'
 import Constants from 'System/Constants'
+import HackeableEntity from 'Entities/HackableEntity'
 
 export default class HelpScreen extends Screen {
 
     // Fields
-    private game: Game;
+
+    private currentTextLine: number = 0;
 
     // Constructors
+
     constructor(game: Game) {
-        super(new Vector2(Constants.helpScreen.topLeftX, Constants.helpScreen.topLeftY), new Vector2(Constants.helpScreen.rightBottomX, Constants.helpScreen.rightBottomY));
+        super(game, new Vector2(Constants.helpScreen.topLeftX, Constants.helpScreen.topLeftY), new Vector2(Constants.helpScreen.rightBottomX, Constants.helpScreen.rightBottomY));
 
         this.game = game;
     }
@@ -20,23 +23,35 @@ export default class HelpScreen extends Screen {
     // Methods
 
     public loadLevel(level: Level): void {
-        this.entities = level.activeRoom.entities;
     }
 
     public render(renderer: Renderer) {
+        this.currentTextLine = 0;
+
         renderer.setFillStyle(Constants.helpScreen.backgroundColor);
         renderer.fillRectangle(this.startPoint, this.endPoint);
 
         // Render all entities
         super.render(renderer);
 
+        // Render all level specific entities
+        this.game.currentLevel.render(renderer, this.startPoint);
+
         // Draw selected entity
         renderer.setFont(Constants.helpScreen.font);
         renderer.setFillStyle(Constants.helpScreen.fontColor);
 
-        const selectedEntity = this.getSelectedEntity();
-        const selectedEntityName = selectedEntity == null ? "None" : selectedEntity.name;
+        const selectedEntity = this.game.currentLevel.getSelectedEntity();
+        const selectedEntityName = selectedEntity == null ? "Nothing" : selectedEntity.name;
+        this.drawText(renderer, `Selected: ${selectedEntityName}`);
 
-        renderer.fillVectorText(`Entity: ${selectedEntityName}`, this.startPoint.add(new Vector2(20, 80)));
+        if (selectedEntity != null && selectedEntity instanceof HackeableEntity)
+            this.drawText(renderer, `State: ${selectedEntity.isEntityHacked() ? 'Hacked' : "Not hacked"}`);
+    }
+
+    private drawText(renderer: Renderer, text: string) {
+        this.currentTextLine++;
+        const textPosition = new Vector2(Constants.helpScreen.helpTextStartX, Constants.helpScreen.helpTextStartY + 24 * this.currentTextLine);
+        renderer.fillVectorText(text, this.startPoint.add(textPosition));
     }
 }

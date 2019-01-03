@@ -2,7 +2,7 @@ import Vector2 from 'System/Vector2'
 import Entity from 'Entities/Entity'
 import Renderer from 'System/Renderer'
 import Level from 'LevelSystem/Level'
-import SelectableEntity from 'Entities/SelectableEntity';
+import Game from 'System/Game'
 
 export default abstract class Screen {
 
@@ -11,11 +11,13 @@ export default abstract class Screen {
     public startPoint: Vector2;
     public endPoint: Vector2;
 
+    protected game: Game;
     protected entities: Entity[] = [];
 
     // Constructors
 
-    constructor(startPoint: Vector2, endPoint: Vector2) {
+    constructor(game: Game, startPoint: Vector2, endPoint: Vector2) {
+        this.game = game;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
     }
@@ -34,39 +36,6 @@ export default abstract class Screen {
     }
 
     public handleClick(position: Vector2) {
-        this.getSelectableEntities().forEach(entity => entity.isSelected = false);
-
-        for (let entity of this.entities) {
-            if (entity.isPositionOnEntity(position.substract(this.startPoint))) {
-
-                if (entity instanceof SelectableEntity)
-                    entity.isSelected = true;
-
-                entity.onClick(position);
-                break;
-            }
-        }
-    }
-
-    public getSelectableEntities(): SelectableEntity[] {
-        const entities = [];
-
-        for (let entity of this.entities) {
-            if (!(entity instanceof SelectableEntity))
-                continue;
-
-            entities.push(entity);
-        }
-
-        return entities;
-    }
-
-    public getSelectedEntity(): SelectableEntity {
-        for (let entity of this.getSelectableEntities()) {
-            if (entity.isSelected)
-                return entity;
-        }
-
-        return null;
+        this.game.currentLevel.handleClick(position.substract(this.startPoint));
     }
 }

@@ -1,7 +1,8 @@
 import Level from './Level'
 import Wall from 'Entities/Wall'
 import Room from 'Entities/Room'
-import AccessPoint from 'Entities/AccessPoint'
+import Firewall from 'Entities/Firewall'
+import Constants from 'System/Constants'
 
 export default class Level01 extends Level {
 
@@ -13,11 +14,11 @@ export default class Level01 extends Level {
 
         const sampleRoom = new Room();
 
-        for (let x = 0; x < 10; x++) {
-            for (let y = 0; y < 10; y++) {
+        for (let x = 0; x < Constants.level.elements; x++) {
+            for (let y = 0; y < Constants.level.elements; y++) {
 
                 // Create wall
-                if (x === 0 || x === 9 || y === 0 || y === 9) {
+                if (x === 0 || x === Constants.level.elements - 1 || y === 0 || y === Constants.level.elements - 1) {
                     const sampleWall = new Wall(this.getPositionByIndex(x, y));
                     sampleRoom.entities.push(sampleWall);
                 }
@@ -25,8 +26,8 @@ export default class Level01 extends Level {
             }
         }
 
-        const sampleAccessPoint = new AccessPoint(this.getPositionByIndex(2, 2));
-        sampleRoom.entities.push(sampleAccessPoint);
+        const sampleFirewall = new Firewall(this.getPositionByIndex(2, 2));
+        sampleRoom.entities.push(sampleFirewall);
 
         this.rooms.push(sampleRoom);
         this.activeRoom = sampleRoom;

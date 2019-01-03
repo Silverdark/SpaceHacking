@@ -30,7 +30,7 @@ export default class Game {
 
     constructor() {
         // Initialize screens
-        const mainScreen = new MainScreen();
+        const mainScreen = new MainScreen(this);
         const helpScreen = new HelpScreen(this);
         this.screens.push(mainScreen);
         this.screens.push(helpScreen);
