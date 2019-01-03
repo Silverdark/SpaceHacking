@@ -8,6 +8,7 @@ export default abstract class Entity {
 
     public position: Vector2;
     public fillStyle: string | CanvasGradient | CanvasPattern;
+    public isSelected: boolean;
 
     // Constructor
 
@@ -24,6 +25,11 @@ export default abstract class Entity {
             render.setFillStyle(this.fillStyle);
 
         render.fillVectorRect(canvasPosition, Constants.tileSize, Constants.tileSize);
+
+        if (this.isSelected) {
+            render.setStrokeStyle(Constants.entities.selectedStrokeStyle);
+            render.strokeVectorRect(canvasPosition, Constants.tileSize, Constants.tileSize);
+        }
     }
 
     public isPositionOnEntity(position: Vector2): boolean {

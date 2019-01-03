@@ -10,7 +10,7 @@ export default abstract class Screen {
     public startPoint: Vector2;
     public endPoint: Vector2;
 
-    protected entites: Entity[] = [];
+    protected entities: Entity[] = [];
 
     // Constructors
 
@@ -26,16 +26,21 @@ export default abstract class Screen {
 
     public render(renderer: Renderer) {
         // Draw all entities
-        this.entites.forEach(entity => entity.render(renderer, this.startPoint));
+        this.entities.forEach(entity => entity.render(renderer, this.startPoint));
     }
 
     public update() {
     }
 
     public handleClick(position: Vector2) {
-        this.entites.forEach(entity => {
-            if (entity.isPositionOnEntity(position.substract(this.startPoint)))
+        this.entities.forEach(entity => entity.isSelected = false);
+
+        for (let entity of this.entities) {
+            if (entity.isPositionOnEntity(position.substract(this.startPoint))) {
+                entity.isSelected = true;
                 entity.onClick(position);
-        })
+                break;
+            }
+        }
     }
 }

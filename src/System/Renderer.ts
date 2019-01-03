@@ -17,6 +17,10 @@ export default class Renderer {
         this.canvasContext.fillStyle = fillStyle;
     }
 
+    public setStrokeStyle(strokeStyle: string | CanvasGradient | CanvasPattern) {
+        this.canvasContext.strokeStyle = strokeStyle;
+    }
+
     public fillRect(x: number, y: number, width: number, height: number) {
         this.canvasContext.fillRect(x, y, width, height);
     }
@@ -27,6 +31,14 @@ export default class Renderer {
 
     public fillRectangle(startPoint: Vector2, endPoint: Vector2) {
         this.canvasContext.fillRect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+    }
+
+    public strokeRect(x: number, y: number, width: number, height: number) {
+        this.canvasContext.strokeRect(x, y, width, height);
+    }
+
+    public strokeVectorRect(position: Vector2, width: number, height: number) {
+        this.canvasContext.strokeRect(position.x, position.y, width, height);
     }
 
     public clearRect(x: number, y: number, width: number, height: number) {

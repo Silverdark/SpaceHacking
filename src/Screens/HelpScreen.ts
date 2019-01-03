@@ -20,7 +20,7 @@ export default class HelpScreen extends Screen {
     // Methods
 
     public loadLevel(level: Level): void {
-        this.entites = level.activeRoom.entities;
+        this.entities = level.activeRoom.entities;
     }
 
     public render(renderer: Renderer) {

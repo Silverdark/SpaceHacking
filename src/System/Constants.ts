@@ -25,6 +25,7 @@ export default {
     },
 
     entities: {
+        selectedStrokeStyle: "#000000",
         wall: {
             backgroundColor: "#000000"
         },
