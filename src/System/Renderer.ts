@@ -11,7 +11,7 @@ export default class Renderer {
         this.canvasContext = canvasContext;
     }
 
-    // Methods
+    // Style methods
 
     public setFillStyle(fillStyle: string | CanvasGradient | CanvasPattern) {
         this.canvasContext.fillStyle = fillStyle;
@@ -20,6 +20,12 @@ export default class Renderer {
     public setStrokeStyle(strokeStyle: string | CanvasGradient | CanvasPattern) {
         this.canvasContext.strokeStyle = strokeStyle;
     }
+
+    public setFont(font: string) {
+        this.canvasContext.font = font;
+    }
+
+    // Draw methods
 
     public fillRect(x: number, y: number, width: number, height: number) {
         this.canvasContext.fillRect(x, y, width, height);
@@ -38,8 +44,18 @@ export default class Renderer {
     }
 
     public strokeVectorRect(position: Vector2, width: number, height: number) {
-        this.canvasContext.strokeRect(position.x, position.y, width, height);
+        this.strokeRect(position.x, position.y, width, height);
     }
+
+    public fillText(text: string, x: number, y: number) {
+        this.canvasContext.fillText(text, x, y);
+    }
+
+    public fillVectorText(text: string, position: Vector2) {
+        this.fillText(text, position.x, position.y);
+    }
+
+    // Clear methods
 
     public clearRect(x: number, y: number, width: number, height: number) {
         this.canvasContext.clearRect(x, y, width, height);

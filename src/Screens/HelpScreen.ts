@@ -27,6 +27,16 @@ export default class HelpScreen extends Screen {
         renderer.setFillStyle(Constants.helpScreen.backgroundColor);
         renderer.fillRectangle(this.startPoint, this.endPoint);
 
+        // Render all entities
         super.render(renderer);
+
+        // Draw selected entity
+        renderer.setFont(Constants.helpScreen.font);
+        renderer.setFillStyle(Constants.helpScreen.fontColor);
+
+        const selectedEntity = this.getSelectedEntity();
+        const selectedEntityName = selectedEntity == null ? "None" : selectedEntity.name;
+
+        renderer.fillVectorText(`Entity: ${selectedEntityName}`, this.startPoint.add(new Vector2(20, 80)));
     }
 }

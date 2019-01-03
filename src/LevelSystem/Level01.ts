@@ -13,11 +13,11 @@ export default class Level01 extends Level {
 
         const sampleRoom = new Room();
 
-        for (let x = 0; x < 8; x++) {
-            for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 10; x++) {
+            for (let y = 0; y < 10; y++) {
 
                 // Create wall
-                if (x === 0 || x === 7 || y === 0 || y === 7) {
+                if (x === 0 || x === 9 || y === 0 || y === 9) {
                     const sampleWall = new Wall(this.getPositionByIndex(x, y));
                     sampleRoom.entities.push(sampleWall);
                 }

@@ -1,6 +1,6 @@
 export default {
     fps: 60,
-    tileSize: 16,
+    tileSize: 32,
 
     mainScreen: {
         backgroundColor: "#FFFFFF",
@@ -11,7 +11,9 @@ export default {
     },
 
     helpScreen: {
-        backgroundColor: "#276822",
+        backgroundColor: "#222222",
+        font: "24px Courier New",
+        fontColor: "#00FF00",
         topLeftX: 1137,
         topLeftY: 75,
         rightBottomX: 1857,
@@ -19,18 +21,18 @@ export default {
     },
 
     level: {
-        startX: 200,
-        startY: 100,
+        startX: 340,
+        startY: 60,
         entityPadding: 5
     },
 
     entities: {
-        selectedStrokeStyle: "#000000",
+        selectedStrokeStyle: "#FF0000",
         wall: {
-            backgroundColor: "#000000"
+            backgroundColor: "#383838"
         },
         accessPoint: {
-            backgroundColor: "#002AFF"
+            backgroundColor: "#0043FF"
         }
     }
 }
