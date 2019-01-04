@@ -3,6 +3,7 @@ import Wall from 'Entities/Wall'
 import Room from 'Entities/Room'
 import Firewall from 'Entities/Firewall'
 import Constants from 'System/Constants'
+import FalloutTerminal from 'Minigames/FalloutTerminal';
 
 export default class Level01 extends Level {
 
@@ -26,7 +27,7 @@ export default class Level01 extends Level {
             }
         }
 
-        const sampleFirewall = new Firewall(this.getPositionByIndex(2, 2));
+        const sampleFirewall = new Firewall(this.getPositionByIndex(2, 2), new FalloutTerminal());
         sampleRoom.entities.push(sampleFirewall);
 
         this.rooms.push(sampleRoom);

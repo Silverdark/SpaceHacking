@@ -1,8 +1,11 @@
 import Room from 'Entities/Room'
 import Vector2 from 'System/Vector2'
 import Constants from 'System/Constants'
-import Renderer from 'System/Renderer';
-import SelectableEntity from 'Entities/SelectableEntity';
+import Renderer from 'System/Renderer'
+import SelectableEntity from 'Entities/SelectableEntity'
+import IMinigame from 'Minigames/IMinigame'
+import FalloutTerminal from 'Minigames/FalloutTerminal'
+import HackeableEntity from 'Entities/HackableEntity';
 
 export default abstract class Level {
 
@@ -10,6 +13,7 @@ export default abstract class Level {
     public static tileSize = 32;
 
     public name: string;
+    public currentMinigame: IMinigame;
 
     public rooms: Room[] = [];
     public activeRoom: Room;
@@ -37,12 +41,16 @@ export default abstract class Level {
             return;
 
         this.getSelectableEntities().forEach(entity => entity.isSelected = false);
+        this.currentMinigame = null;
 
         for (let entity of this.activeRoom.entities) {
             if (entity.isPositionOnEntity(position)) {
 
                 if (entity instanceof SelectableEntity)
                     entity.isSelected = true;
+
+                if (entity instanceof HackeableEntity)
+                    this.currentMinigame = entity.getMinigame();
 
                 entity.onClick(position);
                 break;

@@ -1,5 +1,4 @@
 import Vector2 from 'System/Vector2'
-import Entity from 'Entities/Entity'
 import Renderer from 'System/Renderer'
 import Level from 'LevelSystem/Level'
 import Game from 'System/Game'
@@ -12,7 +11,6 @@ export default abstract class Screen {
     public endPoint: Vector2;
 
     protected game: Game;
-    protected entities: Entity[] = [];
 
     // Constructors
 
@@ -28,14 +26,11 @@ export default abstract class Screen {
     }
 
     public render(renderer: Renderer) {
-        // Draw all entities
-        this.entities.forEach(entity => entity.render(renderer, this.startPoint));
     }
 
     public update() {
     }
 
     public handleClick(position: Vector2) {
-        this.game.currentLevel.handleClick(position.substract(this.startPoint));
     }
 }

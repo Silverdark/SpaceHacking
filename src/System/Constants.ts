@@ -2,8 +2,13 @@ export default {
     fps: 60,
     tileSize: 32,
 
+    screens: {
+        defaultFont: "24px Courier New",
+        defaultFontColor: "#00FF00"
+    },
+
     mainScreen: {
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#222222",
         topLeftX: 61,
         topLeftY: 183,
         rightBottomX: 1085,
@@ -12,8 +17,6 @@ export default {
 
     helpScreen: {
         backgroundColor: "#222222",
-        font: "24px Courier New",
-        fontColor: "#00FF00",
         topLeftX: 1137,
         topLeftY: 75,
         rightBottomX: 1857,
@@ -38,6 +41,13 @@ export default {
         firewall: {
             backgroundColorNotHacked: "#FF0000",
             backgroundColorHacked: "#00FF00"
+        }
+    },
+
+    minigames: {
+        falloutTerminal: {
+            textStartX: 50,
+            textStartY: 80
         }
     }
 }

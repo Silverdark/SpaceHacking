@@ -31,4 +31,8 @@ export default class Vector2 {
             this.x <= rightBottom.x &&
             this.y <= rightBottom.y;
     }
+
+    public isPositive(): boolean {
+        return this.x >= 0 && this.y >= 0;
+    }
 }

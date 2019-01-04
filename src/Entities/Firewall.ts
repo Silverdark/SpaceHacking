@@ -1,13 +1,14 @@
 import Vector2 from 'System/Vector2'
 import Constants from 'System/Constants'
 import HackeableEntity from './HackableEntity'
+import IMinigame from 'Minigames/IMinigame'
 
 export default class Firewall extends HackeableEntity {
 
     // Constructors
 
-    constructor(position: Vector2) {
-        super(position);
+    constructor(position: Vector2, minigame: IMinigame) {
+        super(position, minigame);
 
         this.name = "Firewall";
         this.fillStyle = Constants.entities.firewall.backgroundColorNotHacked;
@@ -15,16 +16,10 @@ export default class Firewall extends HackeableEntity {
 
     // Methods
 
-    public onClick(position: Vector2) {
-        console.log("Clicked firewall");
+    public setHacked(): void {
+        super.setHacked();
 
-        if (this.isHacked)
-            return;
-
-        setTimeout(() => {
-            this.isHacked = true;
-            this.fillStyle = Constants.entities.firewall.backgroundColorHacked;
-        }, 2000);
+        this.fillStyle = Constants.entities.firewall.backgroundColorHacked;
     }
 
 }

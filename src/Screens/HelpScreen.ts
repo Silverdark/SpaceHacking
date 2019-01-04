@@ -38,8 +38,8 @@ export default class HelpScreen extends Screen {
         this.game.currentLevel.render(renderer, this.startPoint);
 
         // Draw selected entity
-        renderer.setFont(Constants.helpScreen.font);
-        renderer.setFillStyle(Constants.helpScreen.fontColor);
+        renderer.setFont(Constants.screens.defaultFont);
+        renderer.setFillStyle(Constants.screens.defaultFontColor);
 
         const selectedEntity = this.game.currentLevel.getSelectedEntity();
         const selectedEntityName = selectedEntity == null ? "Nothing" : selectedEntity.name;
@@ -47,6 +47,10 @@ export default class HelpScreen extends Screen {
 
         if (selectedEntity != null && selectedEntity instanceof HackeableEntity)
             this.drawText(renderer, `State: ${selectedEntity.isEntityHacked() ? 'Hacked' : "Not hacked"}`);
+    }
+
+    public handleClick(position: Vector2) {
+        this.game.currentLevel.handleClick(position.substract(this.startPoint));
     }
 
     private drawText(renderer: Renderer, text: string) {

@@ -2,6 +2,7 @@ import Vector2 from 'System/Vector2'
 import Screen from './Screen'
 import Constants from 'System/Constants'
 import Game from 'System/Game'
+import Renderer from 'System/Renderer'
 
 export default class MainScreen extends Screen {
 
@@ -12,4 +13,18 @@ export default class MainScreen extends Screen {
     }
 
     // Methods
+
+    public render(renderer: Renderer) {
+        renderer.setFillStyle(Constants.helpScreen.backgroundColor);
+        renderer.fillRectangle(this.startPoint, this.endPoint);
+
+        super.render(renderer);
+
+        if (this.game.currentLevel.currentMinigame != null)
+            this.game.currentLevel.currentMinigame.render(renderer, this.startPoint);
+    }
+
+    public handleClick(position: Vector2) {
+        this.game.currentLevel.currentMinigame.handleClick(position.substract(this.startPoint));
+    }
 }

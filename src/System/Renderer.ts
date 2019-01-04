@@ -61,4 +61,8 @@ export default class Renderer {
         this.canvasContext.clearRect(x, y, width, height);
     }
 
+    public clearRectangle(startPoint: Vector2, endPoint: Vector2) {
+        this.canvasContext.clearRect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+    }
+
 }
