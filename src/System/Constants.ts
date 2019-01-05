@@ -38,6 +38,9 @@ export default {
         wall: {
             backgroundColor: "#383838"
         },
+        door: {
+            backgroundColor: "#383800"
+        },
         firewall: {
             backgroundColorNotHacked: "#FF0000",
             backgroundColorHacked: "#00FF00"

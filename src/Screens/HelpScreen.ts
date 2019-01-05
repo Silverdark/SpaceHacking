@@ -5,6 +5,7 @@ import Game from 'System/Game'
 import Level from 'LevelSystem/Level'
 import Constants from 'System/Constants'
 import HackeableEntity from 'Entities/HackableEntity'
+import Door from 'Entities/Door'
 
 export default class HelpScreen extends Screen {
 
@@ -45,8 +46,21 @@ export default class HelpScreen extends Screen {
         const selectedEntityName = selectedEntity == null ? "Nothing" : selectedEntity.name;
         this.drawText(renderer, `Selected: ${selectedEntityName}`);
 
-        if (selectedEntity != null && selectedEntity instanceof HackeableEntity)
-            this.drawText(renderer, `State: ${selectedEntity.isEntityHacked() ? 'Hacked' : "Not hacked"}`);
+        if (selectedEntity != null) {
+            if (selectedEntity instanceof HackeableEntity)
+                this.drawText(renderer, `State: ${selectedEntity.isEntityHacked() ? 'Hacked' : "Not hacked"}`);
+
+            if (selectedEntity instanceof Door) {
+                const requirements = selectedEntity.getMissingRequirements()
+                const allRequirementsFulfilled = requirements.length === 0;
+
+                this.drawText(renderer, "");
+                this.drawText(renderer, "Requirements: " + (allRequirementsFulfilled ? "None" : ""));
+
+                if (!allRequirementsFulfilled)
+                    requirements.forEach(entity => this.drawText(renderer, ` - ${entity.name}`));
+            }
+        }
     }
 
     public handleClick(position: Vector2) {

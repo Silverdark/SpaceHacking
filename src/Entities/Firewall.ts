@@ -8,9 +8,8 @@ export default class Firewall extends HackeableEntity {
     // Constructors
 
     constructor(position: Vector2, minigame: IMinigame) {
-        super(position, minigame);
+        super(position, "Firewall", minigame);
 
-        this.name = "Firewall";
         this.fillStyle = Constants.entities.firewall.backgroundColorNotHacked;
     }
 

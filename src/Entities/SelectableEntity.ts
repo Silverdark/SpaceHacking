@@ -12,8 +12,10 @@ export default abstract class SelectableEntity extends Entity {
 
     // Constructor
 
-    constructor(position: Vector2) {
+    constructor(position: Vector2, name: string) {
         super(position);
+
+        this.name = name;
     }
 
     // Methods

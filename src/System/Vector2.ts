@@ -1,4 +1,5 @@
 export default class Vector2 {
+
     // Fields
 
     public x: number;
@@ -34,5 +35,9 @@ export default class Vector2 {
 
     public isPositive(): boolean {
         return this.x >= 0 && this.y >= 0;
+    }
+
+    isEqual(other: Vector2): boolean {
+        return this.x === other.x && this.y === other.y;
     }
 }

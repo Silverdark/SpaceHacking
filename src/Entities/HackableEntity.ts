@@ -2,7 +2,7 @@ import SelectableEntity from './SelectableEntity'
 import Vector2 from 'System/Vector2'
 import IMinigame from 'Minigames/IMinigame'
 
-export default class HackeableEntity extends SelectableEntity {
+export default abstract class HackeableEntity extends SelectableEntity {
 
     // Fields
 
@@ -11,8 +11,8 @@ export default class HackeableEntity extends SelectableEntity {
 
     // Constructors
 
-    constructor(position: Vector2, minigame: IMinigame) {
-        super(position);
+    constructor(position: Vector2, name: string, minigame: IMinigame) {
+        super(position, name);
 
         this.minigame = minigame;
         minigame.setEntity(this);
